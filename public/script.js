@@ -167,7 +167,7 @@ function updateUserInfo() {
         if (currentPlayer) {
             currentPlayerName.textContent = currentPlayer.name;
         } else {
-            currentPlayerName.textContent = 'No player selected';
+            currentPlayerName.textContent = 'Yourself';
         }
     } else {
         userInfo.style.display = 'none';
