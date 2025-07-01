@@ -10,6 +10,9 @@ backups/
 game_log.txt
 game_summaries/
 
+# Session cookies
+cookies.txt
+
 # Python
 __pycache__/
 *.py[cod]
