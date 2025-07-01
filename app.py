@@ -107,6 +107,24 @@ def run_post_game_script(game_id):
         print(f"Error in post-game script: {e}")
         return False
 
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
+def verify_password(password, hash_):
+    return hash_password(password) == hash_
+
+def ensure_tables():
+    # Only run on Render (PostgreSQL) if tables don't exist
+    if 'DATABASE_URL' in os.environ and not app.config['SQLALCHEMY_DATABASE_URI'].startswith('sqlite'):
+        with app.app_context():
+            from sqlalchemy import inspect
+            inspector = inspect(db.engine)
+            if not inspector.get_table_names():
+                db.create_all()
+                print("Database tables created!")
+
+ensure_tables()
+
 # API Routes
 
 @app.route('/api/auth/register', methods=['POST'])
@@ -377,10 +395,11 @@ def serve_static(filename):
     return send_from_directory('public', filename)
 
 if __name__ == '__main__':
-    # Initialize database
-    init_db()
-    
-    # Start the server
+    # For local dev: create tables if not exist
+    if app.config['SQLALCHEMY_DATABASE_URI'].startswith('sqlite'):
+        with app.app_context():
+            init_db()
     print("Mahjong Tracker server starting...")
     print("Visit http://localhost:3000 to use the application")
-    app.run(debug=True, host='0.0.0.0', port=3000) 
+    port = int(os.environ.get('PORT', 3000))
+    app.run(debug=True, host='0.0.0.0', port=port) 
