@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahjong Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🀄 Mahjong Tracker</h1>
+            <div id="user-info" style="display: none;">
+                <span id="current-user"></span>
+                <button onclick="logout()" class="logout-btn">Logout</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Authentication Section -->
+            <section id="auth-section" class="section">
+                <h2>Welcome to Mahjong Tracker</h2>
+                
+                <!-- Login Form -->
+                <div id="login-form" class="auth-form">
+                    <h3>Login</h3>
+                    <div class="form-group">
+                        <input type="text" id="login-username" placeholder="Username" maxlength="20">
+                        <input type="password" id="login-password" placeholder="Password">
+                        <button onclick="login()">Login</button>
+                    </div>
+                    <p>Don't have an account? <a href="#" onclick="showRegisterForm()">Register here</a></p>
+                </div>
+                
+                <!-- Register Form -->
+                <div id="register-form" class="auth-form" style="display: none;">
+                    <h3>Register</h3>
+                    <div class="form-group">
+                        <input type="text" id="register-username" placeholder="Username" maxlength="20">
+                        <input type="email" id="register-email" placeholder="Email">
+                        <input type="password" id="register-password" placeholder="Password (min 6 chars)">
+                        <button onclick="register()">Register</button>
+                    </div>
+                    <p>Already have an account? <a href="#" onclick="showLoginForm()">Login here</a></p>
+                </div>
+            </section>
+
+            <!-- Player Setup Section (no longer needed) -->
+            <section id="player-setup" class="section" style="display: none;">
+                <h2>Player Setup</h2>
+                <p>This section is no longer needed. Your username is automatically used as your player name.</p>
+            </section>
+
+            <!-- Game Management Section -->
+            <section id="game-management" class="section" style="display: none;">
+                <h2>Game Management</h2>
+                
+                <!-- Current Player Info -->
+                <div class="current-player-info">
+                    <h3>Current Player</h3>
+                    <p><strong>Playing as:</strong> <span id="current-player-name">Loading...</span></p>
+                    <p class="help-text">Your username is automatically used as your player name</p>
+                </div>
+                
+                <!-- Create Game -->
+                <div class="game-option">
+                    <h3>Create New Game</h3>
+                    <button onclick="createGame()">Create Game</button>
+                </div>
+
+                <!-- Join Game -->
+                <div class="game-option">
+                    <h3>Join Existing Game</h3>
+                    <div class="form-group">
+                        <input type="text" id="game-code" placeholder="Enter 4-letter code" maxlength="4" style="text-transform: uppercase;">
+                        <button onclick="joinGame()">Join Game</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Active Game Section -->
+            <section id="active-game" class="section" style="display: none;">
+                <h2>Active Game</h2>
+                <div class="game-info">
+                    <p><strong>Game Code:</strong> <span id="current-game-code"></span></p>
+                    <p><strong>Players:</strong></p>
+                    <ul id="players-list"></ul>
+                </div>
+
+                <!-- Record Result -->
+                <div class="result-form">
+                    <h3>Record Game Result</h3>
+                    <div class="form-group">
+                        <select id="winner-select">
+                            <option value="">Select Winner</option>
+                        </select>
+                        <button onclick="recordResult()">Record Result</button>
+                    </div>
+                    <p class="help-text">Everyone else in the game will be marked as a loser</p>
+                </div>
+
+                <!-- Game Results -->
+                <div class="results-section">
+                    <h3>Game Results</h3>
+                    <div id="results-list"></div>
+                </div>
+            </section>
+
+            <!-- Player Stats Section -->
+            <section id="player-stats" class="section" style="display: none;">
+                <h2>Player Statistics</h2>
+                <div id="stats-display"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Mahjong Tracker - Track your games, not play them!</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
